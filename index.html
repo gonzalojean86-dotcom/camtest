@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caméra</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #111;
+            color: white;
+            padding: 20px;
+        }
+
+        video {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            background: #1877f2;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Caméra du téléphone</h1>
+
+    <button onclick="ouvrirCamera()">
+        📷 Activer la caméra
+    </button>
+
+    <br>
+
+    <video id="camera" autoplay playsinline></video>
+
+    <script>
+        async function ouvrirCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: "environment"
+                    },
+                    audio: false
+                });
+
+                document.getElementById("camera").srcObject = stream;
+
+            } catch (erreur) {
+                alert("Impossible d'accéder à la caméra : " + erreur.message);
+                console.error(erreur);
+            }
+        }
+    </script>
+
+</body>
+</html>
